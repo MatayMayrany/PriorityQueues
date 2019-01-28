@@ -6,7 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/Users/mataymarani/Desktop/Priority-Queues/main.c
+/Users/mataymarani/Desktop/Priority-Queues/linkedListQueue.c
 stdio.h
 -
+stdlib.h
+-
+linkedListQueue.h
+/Users/mataymarani/Desktop/Priority-Queues/linkedListQueue.h
+
+/Users/mataymarani/Desktop/Priority-Queues/linkedListQueue.h
 

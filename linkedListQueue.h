@@ -7,7 +7,6 @@ typedef struct node {
     struct node* next;
 };
 
-void enqueueList(int priority);
+void enqueue(int priority);
 
-
-struct node* dequeueList();
+int dequeue();
