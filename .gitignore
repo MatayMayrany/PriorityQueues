@@ -1,6 +1,6 @@
 *.iml
-.idea/*
-out/*
+.idea/
+out/
 .DS_STORE
-cmake-build-debug/*
+cmake-build-debug/
 CMakeLists.txt
