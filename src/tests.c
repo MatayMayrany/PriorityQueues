@@ -1,11 +1,24 @@
 //
 // Created by Louis on 2019-01-30.
 //
+#include <sys/time.h>
 #include "tests.h"
 
+int *generateArray (int size) {
+    srand(time(NULL));
+
+    int *array = (int*)malloc(sizeof(int) * size);
+
+    for (int i = 0; i < size; ++i) {
+        array[i] = rand() % 100;
+    }
+
+    return &array[0];
+}
+
 void testListReadyQueue() {
-    int q[] = {0, 51, 100, 50, -1, 120, 111, 2, 113, 51 , 89, 3 ,9};
     int size = 13;
+    int *q = generateArray(size);
 
     printf("Enqueue List: \n");
 
@@ -22,28 +35,26 @@ void testListReadyQueue() {
 }
 
 void testHeapReadyQueue() {
-    initHeap(100);
-    int q[] = {100, 21, 30, 10, 3, 1, 150};
-    int size = 7;
+    printf("\n - START -\n\n");
 
-    printf("Enqueue Heap: \n");
+    int size = 100;
+    int *q = generateArray(size);
+
+    initHeap(size);
+
+    printf("Enqueue Heap: \n\n");
 
     for (int i = 0; i < size; ++i) {
-        printf("[%d] %d \n", i, q[i]);
+        printf("| %d ", q[i]);
         enqueueHeap(q[i]);
     }
 
-    printHeap();
+    printf("\n\nDequeue Heap: \n\n");
 
-    printf("DEQUEUE = %d \n", dequeueHeap());
+    for (int j = 0; j < size; ++j) {
+        printf("| %d ", dequeueHeap());
+    }
 
-    printHeap();
-
-    printf("DEQUEUE = %d \n", dequeueHeap());
-
-    printHeap();
-
-    printf("DEQUEUE = %d \n", dequeueHeap());
-
-    printHeap();
+    printf("\n\n - END - \n");
 }
+
