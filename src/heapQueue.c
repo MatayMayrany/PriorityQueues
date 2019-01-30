@@ -35,10 +35,12 @@ void enqueueHeap(int priority) {
     } else {
         end++;
         heap[end] = priority;
+        int n = end;
 
-        while (heap[end] > heap[end/2]) {
-            heap[end] = heap[end/2];
-            heap[end/2] = priority;
+        while (heap[n] > heap[n/2] && n > 1) {
+            heap[n] = heap[n/2];
+            heap[n/2] = priority;
+            n = n/2;
         }
     }
 }
