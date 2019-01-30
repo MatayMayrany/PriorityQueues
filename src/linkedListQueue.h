@@ -1,12 +1,6 @@
-typedef struct singlyLinkedListQueue {
-    struct node* head;
-};
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef struct node {
-    int priority;
-    struct node* next;
-};
+void enqueueList(int priority);
 
-void enqueue(int priority);
-
-int dequeue();
+int dequeueList();

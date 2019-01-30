@@ -1,11 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-
 #include "linkedListQueue.h"
 
-struct node* head = NULL;
+struct node {
+    int priority;
+    struct node* next;
+};
 
+struct node* head = NULL;
 
 // create a new node to add to queue
 struct node *makeNode(int priority) {
@@ -15,7 +15,7 @@ struct node *makeNode(int priority) {
     return new;
 }
 
-void enqueue (int priority) {
+void enqueueList(int priority) {
     struct node *new = makeNode(priority);
 
     if (head == NULL) {
@@ -38,12 +38,14 @@ void enqueue (int priority) {
 }
 
 // pop the head
-int dequeue(){
-    struct node* current = head;
+int dequeueList() {
+    if (head == NULL) {
+        printf("No elements in queue to pop");
+        return 0;
+    }
+
+    struct node *current = head;
     head = head->next;
     free(current);
     return current->priority;
 }
-
-
-
