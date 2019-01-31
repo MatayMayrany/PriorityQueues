@@ -4,8 +4,9 @@
 #include "tests.h"
 
 int main() {
-    //testListReadyQueue();
-    testHeapReadyQueue();
+
+    testReadyQueue(10, 1);
 
     return 0;
 }
+

@@ -10,7 +10,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void testListReadyQueue();
+void testReadyQueue(int iterations, int chooser);
+void testSinglyLinkedListReadyQueue();
+
 
 void testHeapReadyQueue();
 
