@@ -10,14 +10,6 @@
 int *heap;
 int end;
 
-int isEventHeapEmpty() {
-    if (heap[0] == 0) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
-
 void initEventHeap(int maxSize) {
     heap = (int*)malloc(sizeof(int) * maxSize);
 
@@ -25,6 +17,18 @@ void initEventHeap(int maxSize) {
     // 0 is empty
     // 1 is not
     heap[0] = 0;
+}
+
+void killEventHeap() {
+    free(heap);
+}
+
+int isEventHeapEmpty() {
+    if (heap[0] == 0) {
+        return 1;
+    } else {
+    return 0;
+    }
 }
 
 void enqueueEventHeap(int priority) {

@@ -10,6 +10,8 @@
 
 void initEventHeap(int maxSize);
 
+void killEventHeap();
+
 void enqueueEventHeap(int priority);
 
 int dequeueEventHeap();

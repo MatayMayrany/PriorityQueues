@@ -4,7 +4,7 @@
 #include "codes.h"
 
 int main() {
-    test(10, LIST_READY_CODE, 5);
+    test(10, HEAP_EVENT_CODE, 10);
 
     return 0;
 }

@@ -23,7 +23,6 @@ float enqueueTime;
 float startDequeueTime;
 float endDequeueTime;
 float dequeueTime;
-int element;
 
 void saveData(float enqueueTime, float dequeueTime);
 
@@ -42,102 +41,124 @@ int *generateArray (int size) {
 void saveData(float enqueueTime, float dequeueTime) {
     printf("Enqueue Time: %f   ", enqueueTime);
     printf("Dequeue Time: %f   ", dequeueTime);
-    printf("Average Time: %f   \n\n", (dequeueTime + enqueueTime)/2);
-
+    printf("Average Time: %f   \n", (dequeueTime + enqueueTime)/2);
 }
 
 void testSinglyLinkedListReady (int iterations, int size, int *q) {
     printf("Testing Singly Linked List Ready Queue: \n\n");
 
+    printf("Unordered: ");
     for (int i = 0; i < size; ++i) {
         printf("| %d ", q[i]);
         enqueueList(q[i]);
     }
 
-    printf("\n\n");
+    printf("\n");
 
+    printf("Ordered: ");
     for (int i = 0; i < size; ++i) {
         printf("| %d ", dequeueList());
     }
 
-//    printf("\n\n");
-//
-//    for (int j = 0; j < iterations; ++j) {
-//        startDequeueTime = (float) clock();
-//        element = dequeueList();
-//        endDequeueTime = (float) clock();
-//        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
-//
-//        startEnqueueTime = (float) clock();
-//        enqueueList(element);
-//        endEnqueueTime = (float) clock();
-//        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
-//
-//        saveData(enqueueTime, dequeueTime);
-//    }
-}
-
-void testHeapReady (int iterations, int size, int *q) {
-    initReadyHeap(size);
-    printf("Testing Heap Ready Queue: \n\n");
-
+    //put back elements for timing
     for (int i = 0; i < size; ++i) {
-        printf("| %d ", q[i]);
-        enqueueReadyHeap(element);
+        enqueueList(q[i]);
     }
 
     printf("\n\n");
 
+    for (int j = 0; j < iterations; ++j) {
+        startDequeueTime = (float) clock();
+        int element = dequeueList();
+        endDequeueTime = (float) clock();
+        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
+
+        startEnqueueTime = (float) clock();
+        enqueueList(element);
+        endEnqueueTime = (float) clock();
+        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
+
+        saveData(enqueueTime, dequeueTime);
+    }
+}
+
+void testHeapReady(int iterations, int size, int *q) {
+    initReadyHeap(size);
+    printf("Testing Heap Ready Queue: \n\n");
+
+    printf("Unordered list: ");
+    for (int i = 0; i < size; ++i) {
+        printf("| %d ", q[i]);
+        enqueueReadyHeap(q[i]);
+    }
+
+    printf("\n");
+    printf("Ordered list: ");
     for (int i = 0; i < size; ++i) {
         printf("| %d ", dequeueReadyHeap());
     }
 
-//    printf("\n\n");
-//
-//    for (int j = 0; j < iterations; ++j) {
-//        startDequeueTime = (float) clock();
-//        dequeueReadyHeap();
-//        endDequeueTime = (float) clock();
-//        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
-//
-//        startEnqueueTime = (float) clock();
-//        enqueueReadyHeap(element);
-//        endEnqueueTime = (float) clock();
-//        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
-//
-//        saveData(enqueueTime, dequeueTime);
-//    }
-}
-
-void testHeapEvent (int iterations, int size, int *q) {
-    initEventHeap(size);
-
-    printf("Testing Heap Event Queue: \n\n");
-
     for (int i = 0; i < size; ++i) {
-        printf("| %d ", q[i]);
-        enqueueEventHeap(element);
+        enqueueReadyHeap(q[i]);
     }
 
     printf("\n\n");
 
+    for (int j = 0; j < iterations; ++j) {
+        startDequeueTime = (float) clock();
+        int element = dequeueReadyHeap();
+        endDequeueTime = (float) clock();
+        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
+
+        startEnqueueTime = (float) clock();
+        enqueueReadyHeap(element);
+        endEnqueueTime = (float) clock();
+        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
+
+        saveData(enqueueTime, dequeueTime);
+    }
+
+    killReadyHeap();
+}
+
+void testHeapEvent(int iterations, int size, int *q) {
+    initEventHeap(size);
+
+    printf("Testing Heap Event Queue: \n\n");
+
+    printf("Unordered list: ");
+    for (int i = 0; i < size; ++i) {
+        printf("| %d ", q[i]);
+        enqueueEventHeap(q[i]);
+    }
+
+    printf("\n");
+    printf("Ordered list: ");
     for (int i = 0; i < size; ++i) {
         printf("| %d ", dequeueEventHeap());
     }
 
-//    for (int j = 0; j < iterations; ++j) {
-//        startDequeueTime = (float) clock();
-//        dequeueEventHeap();
-//        endDequeueTime = (float) clock();
-//        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
-//
-//        startEnqueueTime = (float) clock();
-//        enqueueEventHeap(element);
-//        endEnqueueTime = (float) clock();
-//        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
-//
-//        saveData(enqueueTime, dequeueTime);
-//    }
+    for (int i = 0; i < size; ++i) {
+        enqueueEventHeap(q[i]);
+    }
+
+    printf("\n\n");
+
+    for (int j = 0; j < iterations; ++j) {
+        startDequeueTime = (float) clock();
+        int element = dequeueEventHeap();
+        endDequeueTime = (float) clock();
+        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
+
+        startEnqueueTime = (float) clock();
+        enqueueEventHeap(element);
+        endEnqueueTime = (float) clock();
+        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
+
+        saveData(enqueueTime, dequeueTime);
+    }
+
+    killEventHeap();
 }
 
 void test(int iterations, int chooser, int size) {

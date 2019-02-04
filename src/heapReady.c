@@ -7,6 +7,19 @@
 int *heap;
 int end;
 
+void initReadyHeap(int maxSize) {
+    heap = (int*)malloc(sizeof(int) * maxSize);
+
+    //tell our program the heap is empty
+    // 0 is empty
+    // 1 is not
+    heap[0] = 0;
+}
+
+void killReadyHeap() {
+    free(heap);
+}
+
 int isReadyHeapEmpty() {
     if (heap[0] == 0) {
         return 1;
@@ -15,13 +28,15 @@ int isReadyHeapEmpty() {
     }
 }
 
-void initReadyHeap(int maxSize) {
-    heap = (int*)malloc(sizeof(int) * maxSize);
+void printReadyHeap() {
+    if(isReadyHeapEmpty()) {
+        printf("Can't print heap as it is empty\n");
+        return;
+    }
 
-    //tell our program the heap is empty
-    // 0 is empty
-    // 1 is not
-    heap[0] = 0;
+    for (int i = 1; i < end+1; ++i) {
+        printf("%d\n", heap[i]);
+    }
 }
 
 void enqueueReadyHeap(int priority) {
@@ -79,15 +94,4 @@ int dequeueReadyHeap() {
     }
 
     return root;
-}
-
-void printReadyHeap() {
-    if(isReadyHeapEmpty()) {
-        printf("Can't print heap as it is empty\n");
-        return;
-    }
-
-    for (int i = 1; i < end+1; ++i) {
-        printf("%d\n", heap[i]);
-    }
 }
