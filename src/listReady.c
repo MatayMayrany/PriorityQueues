@@ -1,4 +1,4 @@
-#include "linkedListQueue.h"
+#include "listReady.h"
 
 struct node {
     int priority;
