@@ -1,11 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedListQueue.h"
 #include "tests.h"
+#include "codes.h"
 
 int main() {
-
-    testReadyQueue(10, 1);
+    test(10, LIST_READY_CODE, 5);
 
     return 0;
 }

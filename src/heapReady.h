@@ -8,12 +8,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void initHeap(int maxSize);
+void initReadyHeap(int maxSize);
 
-void enqueueHeap(int priority);
+void enqueueReadyHeap(int priority);
 
-int dequeueHeap();
-
-void printHeap();
+int dequeueReadyHeap();
 
 #endif //SRC_HEAPQUEUE_H

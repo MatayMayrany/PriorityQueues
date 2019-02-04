@@ -1,13 +1,16 @@
 //
-// Created by Louis on 2019-01-30.
+// Created by Louis on 2019-02-04.
 //
 
-#include "heapQueue.h"
+// double is the data type as we will use time stamps
+// Heap will be minimum based as the lower the time stamp the higher the priority
+
+#include "heapEvent.h"
 
 int *heap;
 int end;
 
-int isHeapEmpty() {
+int isEventHeapEmpty() {
     if (heap[0] == 0) {
         return 1;
     } else {
@@ -15,7 +18,7 @@ int isHeapEmpty() {
     }
 }
 
-void initHeap(int maxSize) {
+void initEventHeap(int maxSize) {
     heap = (int*)malloc(sizeof(int) * maxSize);
 
     //tell our program the heap is empty
@@ -24,8 +27,8 @@ void initHeap(int maxSize) {
     heap[0] = 0;
 }
 
-void enqueueHeap(int priority) {
-    if (isHeapEmpty()) {
+void enqueueEventHeap(int priority) {
+    if (isEventHeapEmpty()) {
         //set heap is not empty
         heap[0] = 1;
         //set top of heap to our priority
@@ -37,7 +40,7 @@ void enqueueHeap(int priority) {
         heap[end] = priority;
         int n = end;
 
-        while (heap[n] > heap[n/2] && n > 1) {
+        while (heap[n] < heap[n/2] && n > 1) {
             heap[n] = heap[n/2];
             heap[n/2] = priority;
             n = n/2;
@@ -45,8 +48,8 @@ void enqueueHeap(int priority) {
     }
 }
 
-int dequeueHeap() {
-    if (isHeapEmpty()) {
+int dequeueEventHeap() {
+    if (isEventHeapEmpty()) {
         printf("Can't dequeue from an empty queue... ");
         return 0;
     }
@@ -59,30 +62,30 @@ int dequeueHeap() {
     int n = 1;
 
     //iterate through heap and reorder
-    while ((heap[n] < heap[n*2] || heap[n] < heap[(n*2)+1]) && n < end) {
-        //find largest child of our node
-        int largestChild;
+    while ((heap[n] > heap[n*2] || heap[n] > heap[(n*2)+1]) && n < end) {
+        int smallestChild;
 
-        //have to add extra condition to if to check that the second child exists
-        if (heap[n*2] < heap[(n*2)+1] && (n*2)+1 < end +1) {
-            largestChild = (n*2)+1;
+        //find smallest child of our node
+        //have to add extra condition to check that the second child exists
+        if (heap[(n*2)+1] < heap[n*2] && (n*2)+1 < end + 1) {
+            smallestChild = (n*2)+1;
         } else {
-            largestChild = (n*2);
+            smallestChild = (n*2);
         }
 
-        //replace our node with largest child
+        //replace our node with smallest child
         int temp = heap[n];
-        heap[n] = heap[largestChild];
-        heap[largestChild] = temp;
+        heap[n] = heap[smallestChild];
+        heap[smallestChild] = temp;
 
-        n = largestChild;
+        n = smallestChild;
     }
 
     return root;
 }
 
-void printHeap() {
-    if(isHeapEmpty()) {
+void printEventHeap() {
+    if(isEventHeapEmpty()) {
         printf("Can't print heap as it is empty\n");
         return;
     }

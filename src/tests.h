@@ -5,15 +5,9 @@
 #ifndef SRC_TESTS_H
 #define SRC_TESTS_H
 
-#include "linkedListQueue.h"
-#include "heapQueue.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void testReadyQueue(int iterations, int chooser);
-void testSinglyLinkedListReadyQueue();
-
-
-void testHeapReadyQueue();
+void test(int iterations, int chooser, int size);
 
 #endif //SRC_TESTS_H
