@@ -1,6 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef SRC_LISTREADY_H
+#define SRC_LISTREADY_H
 
-void enqueueList(int priority);
+void enqueueReadyList(int priority);
 
-int dequeueList();
+int dequeueReadyList();
+
+#endif //SRC_LISTREADY_H

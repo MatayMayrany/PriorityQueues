@@ -1,22 +1,18 @@
 #include "listReady.h"
-
-struct node {
-    int priority;
-    struct node* next;
-};
+#include "common.h"
 
 struct node* head = NULL;
 
 // create a new node to add to queue
-struct node *makeNode(int priority) {
+struct node *makeReadyNode(int priority) {
     struct node *new = malloc(sizeof(struct node));
     new->priority = priority;
     new->next = NULL;
     return new;
 }
 
-void enqueueList(int priority) {
-    struct node *new = makeNode(priority);
+void enqueueReadyList(int priority) {
+    struct node *new = makeReadyNode(priority);
 
     if (head == NULL) {
         head = new;
@@ -38,7 +34,7 @@ void enqueueList(int priority) {
 }
 
 // pop the head
-int dequeueList() {
+int dequeueReadyList() {
     if (head == NULL) {
         printf("No elements in queue to pop");
         return 0;

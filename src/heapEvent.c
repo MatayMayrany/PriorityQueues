@@ -7,11 +7,11 @@
 
 #include "heapEvent.h"
 
-int *heap;
+double *heap;
 int end;
 
 void initEventHeap(int maxSize) {
-    heap = (int*)malloc(sizeof(int) * maxSize);
+    heap = (double*)malloc(sizeof(double) * maxSize);
 
     //tell our program the heap is empty
     // 0 is empty
@@ -31,7 +31,7 @@ int isEventHeapEmpty() {
     }
 }
 
-void enqueueEventHeap(int priority) {
+void enqueueEventHeap(double priority) {
     if (isEventHeapEmpty()) {
         //set heap is not empty
         heap[0] = 1;
@@ -52,14 +52,14 @@ void enqueueEventHeap(int priority) {
     }
 }
 
-int dequeueEventHeap() {
+double dequeueEventHeap() {
     if (isEventHeapEmpty()) {
         printf("Can't dequeue from an empty queue... ");
         return 0;
     }
 
     //replace the value at root with value at the end of the heap
-    int root = heap[1];
+    double root = heap[1];
     heap[1] = heap[end];
     end--;
 
@@ -78,7 +78,7 @@ int dequeueEventHeap() {
         }
 
         //replace our node with smallest child
-        int temp = heap[n];
+        double temp = heap[n];
         heap[n] = heap[smallestChild];
         heap[smallestChild] = temp;
 
@@ -95,6 +95,6 @@ void printEventHeap() {
     }
 
     for (int i = 1; i < end+1; ++i) {
-        printf("%d\n", heap[i]);
+        printf("%f\n", heap[i]);
     }
 }
