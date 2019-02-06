@@ -58,7 +58,6 @@ void saveData(float enqueueTime, float dequeueTime) {
 }
 
 double incrementTimeStamp(double element) {
-    srand48(time(0));
     double r = drand48() * 10000;
     return element + r;
 }
@@ -148,7 +147,7 @@ void testHeapReady(int iterations, int size) {
     killReadyHeap();
 }
 
-void testListEvent(int iterations, int size) {
+void testListEvent(int finalSize, int size) {
     printf("Testing Singly Linked List Ready Queue: \n\n");
 
     double *q = generateEventArray(size);
@@ -173,14 +172,13 @@ void testListEvent(int iterations, int size) {
 
     printf("\n\n");
 
-    for (int j = 0; j < iterations; ++j) {
+    for (int j = 0; j < finalSize; ++j) {
         startDequeueTime = (float) clock();
         double element = dequeueEventList();
         endDequeueTime = (float) clock();
         dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
 
         double new1 = incrementTimeStamp(element);
-        printf("HERE %f\n", new1);
         double new2 = incrementTimeStamp(element);
 
         startEnqueueTime = (float) clock();
@@ -193,7 +191,7 @@ void testListEvent(int iterations, int size) {
     }
 }
 
-void testHeapEvent(int iterations, int size) {
+void testHeapEvent(int finalSize, int size) {
     initEventHeap(size);
 
     printf("Testing Heap Event Queue: \n\n");
@@ -218,14 +216,18 @@ void testHeapEvent(int iterations, int size) {
 
     printf("\n\n");
 
-    for (int j = 0; j < iterations; ++j) {
+    for (int j = 0; j < finalSize; ++j) {
         startDequeueTime = (float) clock();
-        int element = dequeueEventHeap();
+        double element = dequeueEventHeap();
         endDequeueTime = (float) clock();
         dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
 
+        double new1 = incrementTimeStamp(element);
+        double new2 = incrementTimeStamp(element);
+
         startEnqueueTime = (float) clock();
-        enqueueEventHeap(element);
+        enqueueEventList(new1);
+        enqueueEventList(new2);
         endEnqueueTime = (float) clock();
         enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
 
@@ -235,22 +237,22 @@ void testHeapEvent(int iterations, int size) {
     killEventHeap();
 }
 
-void test(int iterations, int chooser, int size) {
+void test(int variable, int chooser, int size) {
     printf("- START - \n\n");
     f = fopen("../data.csv", "w");
 
     switch(chooser) {
         case LIST_READY_CODE :
-            testListReady(iterations, size);
+            testListReady(variable, size);
             break;
         case HEAP_READY_CODE :
-            testHeapReady(iterations, size);
+            testHeapReady(variable, size);
             break;
         case LIST_EVENT_CODE :
-            testListEvent(iterations, size);
+            testListEvent(variable, size);
             break;
         case HEAP_EVENT_CODE :
-            testHeapEvent(iterations, size);
+            testHeapEvent(variable, size);
             break;
         default:
             printf("ERROR: CODE INVALID");
