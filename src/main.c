@@ -4,7 +4,7 @@
 #include "common.h"
 
 int main() {
-    test(10, LIST_EVENT_CODE, 100);
+    test(100, LIST_EVENT_CODE, 1000);
 
     return 0;
 }

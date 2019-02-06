@@ -7,8 +7,13 @@
 
 struct node* head2 = NULL;
 
+struct node {
+    double priority;
+    struct node* next;
+};
+
 // create a new node to add to queue
-struct node *makeEventNode(int priority) {
+struct node *makeEventNode(double priority) {
     struct node *new = malloc(sizeof(struct node));
     new->priority = priority;
     new->next = NULL;

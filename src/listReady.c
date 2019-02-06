@@ -3,6 +3,11 @@
 
 struct node* head = NULL;
 
+struct node {
+    int priority;
+    struct node* next;
+};
+
 // create a new node to add to queue
 struct node *makeReadyNode(int priority) {
     struct node *new = malloc(sizeof(struct node));

@@ -14,9 +14,4 @@
 #define LIST_EVENT_CODE 3
 #define HEAP_EVENT_CODE 4
 
-struct node {
-    int priority;
-    struct node* next;
-};
-
 #endif //SRC_COMMON_H
