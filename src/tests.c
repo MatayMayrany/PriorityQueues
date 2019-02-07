@@ -250,11 +250,11 @@ void test(int variable, int chooser, int size) {
             testHeapReady(variable, size);
             break;
         case LIST_EVENT_CODE :
-            fprintf(f, "?, ?, ?, \n");
+            fprintf(f, "Dequeue Time, First Enqueue Time, Second Enqueue Time, Sum, \n");
             testListEvent(variable, size);
             break;
         case HEAP_EVENT_CODE :
-            fprintf(f, "?, ?, ?, \n");
+            fprintf(f, "Dequeue Time, First Enqueue Time, Second Enqueue Time, Sum, \n");
             testHeapEvent(variable, size);
             break;
         default:
