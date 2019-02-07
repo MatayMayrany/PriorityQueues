@@ -30,7 +30,7 @@ int *generateReadyArray (int size) {
     int *array = (int*)malloc(sizeof(int) * size);
 
     for (int i = 0; i < size; ++i) {
-        array[i] = arc4random_uniform((uint32_t) size);
+        array[i] = arc4random_uniform((uint32_t) 1000);
     }
 
     return &array[0];
@@ -42,7 +42,7 @@ double *generateEventArray (int size) {
     srand48(time(0));
 
     for (int i = 0; i < size; ++i) {
-        double r = drand48() * 10000;
+        double r = drand48() * 1000;
         array[i] = r;
     }
 
@@ -54,7 +54,7 @@ int getRandInt (int size) {
 }
 
 void saveData(float enqueueTime, float dequeueTime) {
-    fprintf(f, "%f\n", (enqueueTime+dequeueTime)/2);
+    fprintf(f, "%f, %f, %f, \n", enqueueTime, dequeueTime, (enqueueTime+dequeueTime));
 }
 
 double incrementTimeStamp(double element) {
@@ -191,7 +191,7 @@ void testListEvent(int finalSize, int size) {
     }
 }
 
-void testHeapEvent(int finalSize, int size) {
+void testHeapEvent(int iterations, int size) {
     initEventHeap(size);
 
     printf("Testing Heap Event Queue: \n\n");
@@ -216,7 +216,7 @@ void testHeapEvent(int finalSize, int size) {
 
     printf("\n\n");
 
-    for (int j = 0; j < finalSize; ++j) {
+    for (int j = 0; j < iterations; ++j) {
         startDequeueTime = (float) clock();
         double element = dequeueEventHeap();
         endDequeueTime = (float) clock();

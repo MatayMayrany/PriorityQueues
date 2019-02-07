@@ -6,8 +6,13 @@
 int main() {
     //First variable:
     //   For Ready testing is the number of times you want to test the enqueue dequeue operations
-    //   For Event testing is the total size you want to the list to iterate
-    test(1100, HEAP_EVENT_CODE, 1000);
+    //   For Event testing is the total size you want to the list to iterate'
+    /*if you would like to test EVENT DRIVEN SIMLUATIONS insert the following:
+     * (finalSize - initialSize, code, initialSize)
+     * For READY QUEUES:
+     * (iterations, code, initialSize)
+     * */
+    test(35, HEAP_READY_CODE, 10);
 
     return 0;
 }
