@@ -30,19 +30,18 @@ int *generateReadyArray (int size) {
     int *array = (int*)malloc(sizeof(int) * size);
 
     for (int i = 0; i < size; ++i) {
-        array[i] = arc4random_uniform((uint32_t) size);
+        array[i] = arc4random_uniform((uint32_t) 1000);
     }
 
     return &array[0];
 }
-
 
 double *generateEventArray (int size) {
     double *array = (double*)malloc(sizeof(double) * size);
     srand48(time(0));
 
     for (int i = 0; i < size; ++i) {
-        double r = drand48() * 10000;
+        double r = drand48() * 1000;
         array[i] = r;
     }
 
@@ -54,7 +53,7 @@ int getRandInt (int size) {
 }
 
 void saveData(float enqueueTime, float dequeueTime) {
-    fprintf(f, "%f\n", (enqueueTime+dequeueTime)/2);
+    fprintf(f, "%f, %f, %f, \n", enqueueTime, dequeueTime, (enqueueTime+dequeueTime));
 }
 
 double incrementTimeStamp(double element) {
@@ -110,14 +109,14 @@ void testHeapReady(int iterations, int size) {
 
     int *q = generateReadyArray(size);
 
-    printf("Unordered list: ");
+    printf("Unordered: ");
     for (int i = 0; i < size; ++i) {
         printf("| %d ", q[i]);
         enqueueReadyHeap(q[i]);
     }
 
     printf("\n");
-    printf("Ordered list: ");
+    printf("Ordered: ");
     for (int i = 0; i < size; ++i) {
         printf("| %d ", dequeueReadyHeap());
     }
@@ -148,7 +147,7 @@ void testHeapReady(int iterations, int size) {
 }
 
 void testListEvent(int finalSize, int size) {
-    printf("Testing Singly Linked List Ready Queue: \n\n");
+    printf("Testing Singly Linked List Event Queue: \n\n");
 
     double *q = generateEventArray(size);
 
@@ -160,7 +159,7 @@ void testListEvent(int finalSize, int size) {
 
     printf("\n");
 
-    printf("Ordered HERE: ");
+    printf("Ordered: ");
     for (int i = 0; i < size; ++i) {
         printf("| %f ", dequeueEventList());
     }
@@ -191,7 +190,7 @@ void testListEvent(int finalSize, int size) {
     }
 }
 
-void testHeapEvent(int finalSize, int size) {
+void testHeapEvent(int iterations, int size) {
     initEventHeap(size);
 
     printf("Testing Heap Event Queue: \n\n");
@@ -216,7 +215,7 @@ void testHeapEvent(int finalSize, int size) {
 
     printf("\n\n");
 
-    for (int j = 0; j < finalSize; ++j) {
+    for (int j = 0; j < iterations; ++j) {
         startDequeueTime = (float) clock();
         double element = dequeueEventHeap();
         endDequeueTime = (float) clock();
@@ -243,15 +242,19 @@ void test(int variable, int chooser, int size) {
 
     switch(chooser) {
         case LIST_READY_CODE :
+            fprintf(f, "Enqueue Time, Dequeue Time, Sum, \n");
             testListReady(variable, size);
             break;
         case HEAP_READY_CODE :
+            fprintf(f, "Enqueue Time, Dequeue Time, Sum, \n");
             testHeapReady(variable, size);
             break;
         case LIST_EVENT_CODE :
+            fprintf(f, "?, ?, ?, \n");
             testListEvent(variable, size);
             break;
         case HEAP_EVENT_CODE :
+            fprintf(f, "?, ?, ?, \n");
             testHeapEvent(variable, size);
             break;
         default:
