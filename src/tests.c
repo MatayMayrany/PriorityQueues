@@ -25,12 +25,13 @@ float startDequeueTime;
 float endDequeueTime;
 float dequeueTime;
 FILE *f;
+int SIZE_OF_RAND = 1000;
 
 int *generateReadyArray (int size) {
     int *array = (int*)malloc(sizeof(int) * size);
 
     for (int i = 0; i < size; ++i) {
-        array[i] = arc4random_uniform((uint32_t) 1000);
+        array[i] = arc4random_uniform((uint32_t) SIZE_OF_RAND);
     }
 
     return &array[0];
@@ -41,15 +42,15 @@ double *generateEventArray (int size) {
     srand48(time(0));
 
     for (int i = 0; i < size; ++i) {
-        double r = drand48() * 1000;
+        double r = drand48() * SIZE_OF_RAND;
         array[i] = r;
     }
 
     return &array[0];
 }
 
-int getRandInt (int size) {
-    return arc4random_uniform((uint32_t) size);;
+int getRandInt () {
+    return arc4random_uniform((uint32_t) SIZE_OF_RAND);;
 }
 
 void saveData(float enqueueTime, float dequeueTime) {
@@ -57,7 +58,7 @@ void saveData(float enqueueTime, float dequeueTime) {
 }
 
 double incrementTimeStamp(double element) {
-    double r = drand48() * 10000;
+    double r = drand48() * SIZE_OF_RAND;
     return element + r;
 }
 
@@ -87,7 +88,7 @@ void testListReady(int iterations, int size) {
     printf("\n\n");
 
     for (int j = 0; j < iterations; ++j) {
-        int element = getRandInt(size);
+        int element = getRandInt();
 
         startDequeueTime = (float) clock();
         dequeueReadyList();
@@ -128,7 +129,7 @@ void testHeapReady(int iterations, int size) {
     printf("\n\n");
 
     for (int j = 0; j < iterations; ++j) {
-        int element = getRandInt(size);
+        int element = getRandInt();
 
         startDequeueTime = (float) clock();
         dequeueReadyHeap();
@@ -180,9 +181,13 @@ void testListEvent(int finalSize, int size) {
         double new1 = incrementTimeStamp(element);
         double new2 = incrementTimeStamp(element);
 
+        printf("ELEMENT %f ELEMENT %f \n", new1, new2);
+
         startEnqueueTime = (float) clock();
         enqueueEventList(new1);
         enqueueEventList(new2);
+
+
         endEnqueueTime = (float) clock();
         enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
 
@@ -250,7 +255,7 @@ void test(int variable, int chooser, int size) {
             testHeapReady(variable, size);
             break;
         case LIST_EVENT_CODE :
-            fprintf(f, "?, ?, ?, \n");
+            fprintf(f, ", ?, ?, \n");
             testListEvent(variable, size);
             break;
         case HEAP_EVENT_CODE :
