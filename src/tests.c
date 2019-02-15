@@ -131,10 +131,12 @@ void testHeapReady(int iterations, int size) {
 
     for (int j = 0; j < iterations; ++j) {
         startDequeueTime = (float) clock();
+        printf("DeQ value %d\n", dequeueReadyHeap());
         endDequeueTime = (float) clock();
         dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
 
         int element = getRandInt();
+        printf("ELEMENT %d\n", element);
 
         startEnqueueTime = (float) clock();
         enqueueReadyHeap(element);

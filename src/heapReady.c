@@ -40,9 +40,7 @@ void printReadyHeap() {
 }
 
 void enqueueReadyHeap(int priority) {
-
     if (isReadyHeapEmpty()) {
-        printf("EMPTY HEAP\n");
         //set heap is not empty
         heap[0] = 1;
         //set top of heap to our priority
