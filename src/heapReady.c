@@ -33,14 +33,16 @@ void printReadyHeap() {
         printf("Can't print heap as it is empty\n");
         return;
     }
-
+    printf("\n");
     for (int i = 1; i < end+1; ++i) {
-        printf("%d\n", heap[i]);
+        printf("[%d]-> %d", i, heap[i]);
     }
 }
 
 void enqueueReadyHeap(int priority) {
+
     if (isReadyHeapEmpty()) {
+        printf("EMPTY HEAP\n");
         //set heap is not empty
         heap[0] = 1;
         //set top of heap to our priority
@@ -51,16 +53,25 @@ void enqueueReadyHeap(int priority) {
         end++;
         heap[end] = priority;
         int n = end;
-
         while (heap[n] > heap[n/2] && n > 1) {
             heap[n] = heap[n/2];
             heap[n/2] = priority;
             n = n/2;
         }
     }
+    //printReadyHeap();
+}
+
+void exchange(int i , int j) {
+    int temp;
+    temp = heap[i];
+    heap[i] = heap[j];
+    heap[j] = temp;
 }
 
 int dequeueReadyHeap() {
+    //printReadyHeap();
+
     if (isReadyHeapEmpty()) {
         printf("Can't dequeue from an empty queue... ");
         return 0;
@@ -69,28 +80,28 @@ int dequeueReadyHeap() {
     //replace the value at root with value at the end of the heap
     int root = heap[1];
     heap[1] = heap[end];
+
     end--;
 
-    int n = 1;
+    int parent = 1;
+    int largestChild = 0;
 
     //iterate through heap and reorder
-    while ((heap[n] < heap[n*2] || heap[n] < heap[(n*2)+1]) && n < end) {
+    while (parent*2 <= end) {
         //find largest child of our node
-        int largestChild;
-
-        //have to add extra condition to if to check that the second child exists
-        if (heap[n*2] < heap[(n*2)+1] && (n*2)+1 < end +1) {
-            largestChild = (n*2)+1;
+        //have to add extra condition to check that the second child exists
+        if ((heap[parent*2] < heap[(parent*2)+1]) && (parent*2) < end) {
+            largestChild = (parent*2)+1;
         } else {
-            largestChild = (n*2);
+            largestChild = parent*2;
         }
 
-        //replace our node with largest child
-        int temp = heap[n];
-        heap[n] = heap[largestChild];
-        heap[largestChild] = temp;
+        if (heap[parent] >= heap[largestChild])
+            break;
 
-        n = largestChild;
+        //replace our node with largest child
+        exchange(parent, largestChild);
+        parent = largestChild;
     }
 
     return root;

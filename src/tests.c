@@ -109,6 +109,7 @@ void testHeapReady(int iterations, int size) {
     printf("Testing Heap Ready Queue: \n\n");
 
     int *q = generateReadyArray(size);
+    //int q[9] = {843, 697, 792, 586, 128, 434, 708, 234, 6};
 
     printf("Unordered: ");
     for (int i = 0; i < size; ++i) {
@@ -129,12 +130,11 @@ void testHeapReady(int iterations, int size) {
     printf("\n\n");
 
     for (int j = 0; j < iterations; ++j) {
-        int element = getRandInt();
-
         startDequeueTime = (float) clock();
-        dequeueReadyHeap();
         endDequeueTime = (float) clock();
         dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
+
+        int element = getRandInt();
 
         startEnqueueTime = (float) clock();
         enqueueReadyHeap(element);
