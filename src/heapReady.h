@@ -18,4 +18,6 @@ int dequeueReadyHeap();
 
 void printReadyHeap();
 
+int deqCounterReady;
+
 #endif //SRC_HEAPREADY_H

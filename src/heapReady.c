@@ -1,6 +1,4 @@
-//
-// Created by Louis on 2019-01-30.
-//
+
 
 #include <math.h>
 #include<limits.h>
@@ -35,12 +33,13 @@ int enqueueReadyHeap(int priority) {
 
 int dequeueReadyHeap() {
     int maxElement, lastElement, child, now;
-    int deqCounter = 0;
+    deqCounterReady = 0;
+
     maxElement = heap[1];
     lastElement = heap[end--];
 
     for (now = 1; now * 2 <= end; now = child) {
-        deqCounter++;
+        deqCounterReady++;
         child = now * 2;
         if (child != end && heap[child + 1] > heap[child]) {
             child++;
@@ -54,5 +53,5 @@ int dequeueReadyHeap() {
     }
 
     heap[now] = lastElement;
-    return deqCounter;
+    return maxElement;
 }

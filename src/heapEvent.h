@@ -12,8 +12,10 @@ void initEventHeap(int maxSize);
 
 void killEventHeap();
 
-void enqueueEventHeap(double priority);
+int enqueueEventHeap(double priority);
 
 double dequeueEventHeap();
+
+int deqCounterHeap;
 
 #endif //SRC_HEAPEVENT_H
