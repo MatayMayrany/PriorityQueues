@@ -2,6 +2,7 @@
 // Created by Louis on 2019-01-30.
 //
 
+#include <math.h>
 #include "heapReady.h"
 
 int *heap;
@@ -33,31 +34,36 @@ void printReadyHeap() {
         printf("Can't print heap as it is empty\n");
         return;
     }
-    printf("\n");
-    for (int i = 1; i < end+1; ++i) {
-        printf("[%d]-> %d", i, heap[i]);
+
+    int index = 1;
+    int level = 0;
+    int total = 50;
+    while (index < end) {
+        printf("\n");
+        total/=2;
+
+        while (index<pow(2, level+1) && index < end) {
+            printf("%*c", total, ' ');
+            printf(" [%d] ", heap[index]);
+            index++;
+
+        }
+
+        level++;
     }
+    printf("\n");
+
 }
 
 void enqueueReadyHeap(int priority) {
-    if (isReadyHeapEmpty()) {
-        //set heap is not empty
-        heap[0] = 1;
-        //set top of heap to our priority
-        heap[1] = priority;
-        //set the end of the array
-        end = 1;
-    } else {
-        end++;
-        heap[end] = priority;
-        int n = end;
-        while (heap[n] > heap[n/2] && n > 1) {
-            heap[n] = heap[n/2];
-            heap[n/2] = priority;
-            n = n/2;
-        }
+    end++;
+    heap[end] = priority;
+    int now = end;
+    while (heap[now / 2] > priority) {
+        heap[now] = heap[now / 2];
+        now /= 2;
     }
-    //printReadyHeap();
+    heap[now] = priority;
 }
 
 void exchange(int i , int j) {
@@ -68,8 +74,6 @@ void exchange(int i , int j) {
 }
 
 int dequeueReadyHeap() {
-    //printReadyHeap();
-
     if (isReadyHeapEmpty()) {
         printf("Can't dequeue from an empty queue... ");
         return 0;
@@ -78,8 +82,6 @@ int dequeueReadyHeap() {
     //replace the value at root with value at the end of the heap
     int root = heap[1];
     heap[1] = heap[end];
-
-    end--;
 
     int parent = 1;
     int largestChild = 0;
@@ -101,6 +103,7 @@ int dequeueReadyHeap() {
         exchange(parent, largestChild);
         parent = largestChild;
     }
+    end--;
 
     return root;
 }

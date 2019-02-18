@@ -104,12 +104,27 @@ void testListReady(int iterations, int size) {
     }
 }
 
+void checkHeapReady(int size) {
+    printf("\n");
+    printf("Ordered: ");
+    int prev = dequeueReadyHeap();
+    printf("| %d ", prev);
+
+    for (int i = 0; i < size; ++i) {
+        int n = dequeueReadyHeap();
+        printf("| %d ", n);
+        if (n > prev) {
+            printf("\nQUEUE IS NOT IN ORDER!\n");
+        }
+        prev = n;
+    }
+}
+
 void testHeapReady(int iterations, int size) {
     initReadyHeap(size);
     printf("Testing Heap Ready Queue: \n\n");
 
     int *q = generateReadyArray(size);
-    //int q[9] = {843, 697, 792, 586, 128, 434, 708, 234, 6};
 
     printf("Unordered: ");
     for (int i = 0; i < size; ++i) {
@@ -117,11 +132,7 @@ void testHeapReady(int iterations, int size) {
         enqueueReadyHeap(q[i]);
     }
 
-    printf("\n");
-    printf("Ordered: ");
-    for (int i = 0; i < size; ++i) {
-        printf("| %d ", dequeueReadyHeap());
-    }
+    checkHeapReady(size);
 
     for (int i = 0; i < size; ++i) {
         enqueueReadyHeap(q[i]);
@@ -131,7 +142,7 @@ void testHeapReady(int iterations, int size) {
 
     for (int j = 0; j < iterations; ++j) {
         startDequeueTime = (float) clock();
-        printf("DeQ value %d\n", dequeueReadyHeap());
+        dequeueReadyHeap();
         endDequeueTime = (float) clock();
         dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
 
@@ -139,13 +150,16 @@ void testHeapReady(int iterations, int size) {
         printf("ELEMENT %d\n", element);
 
         startEnqueueTime = (float) clock();
-        enqueueReadyHeap(element);
+       // enqueueReadyHeap(element);
         endEnqueueTime = (float) clock();
         enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
 
         saveData(enqueueTime, dequeueTime);
+
+        printReadyHeap();
     }
 
+    //checkHeapReady(size);
     killReadyHeap();
 }
 

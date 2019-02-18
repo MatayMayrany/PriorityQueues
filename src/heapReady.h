@@ -16,4 +16,6 @@ void enqueueReadyHeap(int priority);
 
 int dequeueReadyHeap();
 
+void printReadyHeap();
+
 #endif //SRC_HEAPREADY_H
