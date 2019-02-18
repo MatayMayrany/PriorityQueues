@@ -104,21 +104,17 @@ void testListReady(int iterations, int size) {
     }
 }
 
-void checkHeapReady(int size) {
-    printf("\n");
-    printf("Ordered: ");
-    int prev = dequeueReadyHeap();
-    printf("| %d ", prev);
-
-    for (int i = 0; i < size; ++i) {
-        int n = dequeueReadyHeap();
-        printf("| %d ", n);
-        if (n > prev) {
-            printf("\nQUEUE IS NOT IN ORDER!\n");
-        }
-        prev = n;
-    }
-}
+//void checkHeapReady(int size) {
+//    printf("\n");
+//    printf("Ordered: ");
+//    int prev = dequeueReadyHeap();
+//    printf("| %d ", prev);
+//
+//    for (int i = 0; i < size; ++i) {
+//        int n = dequeueReadyHeap();
+//        printf("| %d ", n);
+//    }
+//}
 
 void testHeapReady(int iterations, int size) {
     initReadyHeap(size);
@@ -132,7 +128,10 @@ void testHeapReady(int iterations, int size) {
         enqueueReadyHeap(q[i]);
     }
 
-    checkHeapReady(size);
+    printf("\nOrdered: ");
+    for (int i = 0; i < size; ++i) {
+        printf("| %d ", dequeueReadyHeap());
+    }
 
     for (int i = 0; i < size; ++i) {
         enqueueReadyHeap(q[i]);
@@ -150,16 +149,14 @@ void testHeapReady(int iterations, int size) {
         printf("ELEMENT %d\n", element);
 
         startEnqueueTime = (float) clock();
-       // enqueueReadyHeap(element);
+        enqueueReadyHeap(element);
         endEnqueueTime = (float) clock();
         enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
 
         saveData(enqueueTime, dequeueTime);
 
-        printReadyHeap();
     }
 
-    //checkHeapReady(size);
     killReadyHeap();
 }
 
