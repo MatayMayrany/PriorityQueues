@@ -12,7 +12,7 @@ void initReadyHeap(int maxSize);
 
 void killReadyHeap();
 
-void enqueueReadyHeap(int priority);
+int enqueueReadyHeap(int priority);
 
 int dequeueReadyHeap();
 

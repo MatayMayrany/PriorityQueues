@@ -122,16 +122,16 @@ void testHeapReady(int iterations, int size) {
 
     int *q = generateReadyArray(size);
 
-    printf("Unordered: ");
-    for (int i = 0; i < size; ++i) {
-        printf("| %d ", q[i]);
-        enqueueReadyHeap(q[i]);
-    }
-
-    printf("\nOrdered: ");
-    for (int i = 0; i < size; ++i) {
-        printf("| %d ", dequeueReadyHeap());
-    }
+//    printf("Unordered: ");
+//    for (int i = 0; i < size; ++i) {
+//        printf("| %d ", q[i]);
+//        enqueueReadyHeap(q[i]);
+//    }
+//
+//    printf("\nOrdered: ");
+//    for (int i = 0; i < size; ++i) {
+//        printf("| %d ", dequeueReadyHeap());
+//    }
 
     for (int i = 0; i < size; ++i) {
         enqueueReadyHeap(q[i]);
@@ -140,21 +140,25 @@ void testHeapReady(int iterations, int size) {
     printf("\n\n");
 
     for (int j = 0; j < iterations; ++j) {
-        startDequeueTime = (float) clock();
-        dequeueReadyHeap();
-        endDequeueTime = (float) clock();
-        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
+//        startDequeueTime = (float) clock();
+//        dequeueReadyHeap();
+//        endDequeueTime = (float) clock();
+//        dequeueTime = (endDequeueTime - startDequeueTime) / CLOCKS_PER_SEC;
+//
+//        int element = getRandInt();
+//        printf("ELEMENT %d\n", element);
+//
+//        startEnqueueTime = (float) clock();
+//        enqueueReadyHeap(element);
+//        endEnqueueTime = (float) clock();
+//        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
+//
+//        saveData(enqueueTime, dequeueTime);
 
+        int deqCounter = dequeueReadyHeap();
         int element = getRandInt();
-        printf("ELEMENT %d\n", element);
-
-        startEnqueueTime = (float) clock();
-        enqueueReadyHeap(element);
-        endEnqueueTime = (float) clock();
-        enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
-
-        saveData(enqueueTime, dequeueTime);
-
+        int enqCounter = enqueueReadyHeap(element);
+        saveData(enqCounter, deqCounter);
     }
 
     killReadyHeap();
