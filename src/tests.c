@@ -3,7 +3,7 @@
 //
 
 /*Create fixed size queue from randomly generated array
- * We dont need to measure the time for this
+ * We don't need to measure the time for this
  * only measuring for the accesses of the fixed size queue */
 
 /* dequeue and element then enqueue an element directly after
@@ -62,6 +62,22 @@ double incrementTimeStamp(double element) {
     return element + r;
 }
 
+void checkHeapReady(int size) {
+    printf("\n");
+    printf("Ordered: ");
+    int prev = dequeueReadyHeap();
+    printf("| %d ", prev);
+
+    for (int i = 0; i < size; ++i) {
+        int n = dequeueReadyHeap();
+        printf("| %d ", n);
+        if (n > prev) {
+            printf("\nQUEUE IS NOT IN ORDER!\n");
+        }
+        prev = n;
+    }
+}
+
 void testListReady(int iterations, int size) {
     printf("Testing Singly Linked List Ready Queue: \n\n");
 
@@ -102,19 +118,9 @@ void testListReady(int iterations, int size) {
 
         saveData(enqueueTime, dequeueTime);
     }
-}
 
-//void checkHeapReady(int size) {
-//    printf("\n");
-//    printf("Ordered: ");
-//    int prev = dequeueReadyHeap();
-//    printf("| %d ", prev);
-//
-//    for (int i = 0; i < size; ++i) {
-//        int n = dequeueReadyHeap();
-//        printf("| %d ", n);
-//    }
-//}
+
+}
 
 void testHeapReady(int iterations, int size) {
     initReadyHeap(size);
@@ -154,8 +160,9 @@ void testHeapReady(int iterations, int size) {
         enqueueTime = (endEnqueueTime - startEnqueueTime) / CLOCKS_PER_SEC;
 
         saveData(enqueueTime, dequeueTime);
-
     }
+
+    checkHeapReady(size);
 
     killReadyHeap();
 }
