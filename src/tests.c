@@ -220,7 +220,7 @@ void testListEvent(int finalSize, int size) {
 }
 
 void testHeapEvent(int iterations, int size) {
-    initEventHeap(size);
+    initEventHeap(size + iterations);
 
     printf("Testing Heap Event Queue: \n\n");
 
@@ -263,10 +263,8 @@ void testHeapEvent(int iterations, int size) {
         double element = dequeueEventHeap();
         double new1 = incrementTimeStamp(element);
         double new2 = incrementTimeStamp(element);
-        int enqCounter1 = enqueueEventHeap(new1);
-        int enqCounter2 = enqueueEventHeap(new2);
-
-        saveData(enqCounter1+enqCounter2, deqCounterHeap);
+        int enqCounter = enqueueEventHeap(new1) + enqueueEventHeap(new2);
+        saveData(enqCounter, deqCounterHeap);
     }
 
     killEventHeap();
@@ -300,5 +298,5 @@ void test(int variable, int chooser, int size) {
 
     fclose(f);
 
-    printf("\n\n- END - ");
+    printf("\n\n - END - ");
 }
